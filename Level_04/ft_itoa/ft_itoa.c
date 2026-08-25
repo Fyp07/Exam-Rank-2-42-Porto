@@ -1,11 +1,12 @@
 
 #include <stdlib.h>
-#include <stdio.h>
 
-int	num_len(int n)
+int	dig_len(int n)
 {
 	int i = 0;
 
+	if (n == 0)
+		return (1);
 	if (n < 0)
 	{
 		n *= -1;
@@ -22,13 +23,12 @@ int	num_len(int n)
 char	*ft_itoa(int nbr)
 {
 	long n = nbr;
-	int size = num_len(n);
+	int	len = dig_len(n);
 	char *res;
 
-	res = malloc((size + 1) * sizeof(char));
-	if (!res)
-		return (NULL);
-	res[size] = '\0';
+	if (!(res = malloc((len + 1 * sizeof(char)))))
+		return NULL;
+	res[len] = '\0';
 	if (n == 0)
 	{
 		res[0] = '0';
@@ -36,14 +36,14 @@ char	*ft_itoa(int nbr)
 	}
 	if (n < 0)
 	{
-		res[0] = '-';
 		n *= -1;
+		res[0] = '-';
 	}
 	while (n)
 	{
-		res[size - 1] = n % 10 + 48;
-		size--;
+		res[len - 1] = n % 10 + 48;
+		len--;
 		n /= 10;
-	}
+	}	
 	return (res);
 }

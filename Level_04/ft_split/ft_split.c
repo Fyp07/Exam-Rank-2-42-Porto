@@ -1,29 +1,30 @@
 
 #include <stdlib.h>
+#include <stdio.h>
 
 char	**ft_split(char *str)
 {
 	int i = 0;
 	int k = 0;
-	char **split;
 	int j;
+	char **box;
 
-	if (!(split = malloc(sizeof(char *) * 256)))
+	if (!(box = malloc(256 * sizeof(char *))))
 		return (NULL);
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	while (str[i] && str[i] <= 32)
 		i++;
 	while (str[i])
 	{
 		j = 0;
-		if (!(split[k] = malloc(sizeof(char) * 4096)))
-			return (NULL);
-		while (str[i] && (str[i] != 32 && str[i] != '\t'))
-			split[k][j++] = str[i++];
-		while (str[i] == ' ' || str[i] == '\t')
+		if (!(box[k] = malloc(4096 * sizeof(char))))
+			return NULL;
+		while (str[i] && str[i] > 32)
+			box[k][j++] = str[i++];
+		while (str[i] && str[i] <= 32)
 			i++;
-		split[k][j] = '\0';
+		box[k][j] = '\0';
 		k++;
 	}
-	split[k] = NULL;
-	return (split);
+	box[k] = NULL;
+	return (box);
 }

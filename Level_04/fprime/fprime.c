@@ -13,7 +13,7 @@ void	fprime(int n)
 		if (n % i == 0)
 		{
 			printf("%d", i);
-			if (i != n)
+			if (n != i)
 				printf("*");
 			n /= i;
 		}

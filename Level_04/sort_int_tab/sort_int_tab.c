@@ -1,67 +1,46 @@
 
 #include <stdio.h>
 
-int	is_sorted(int *tab, int size)
+void	ft_swap(int *a, int *b)
 {
-	int i;
-
-	i = 0;
-	while (i < size - 1)
-	{
-		if (tab[i] > tab[i + 1])
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	swap(int *a, int *b)
-{
-	int tmp;
-
-	tmp = *a;
+	int tmp = *a;
 	*a = *b;
 	*b = tmp;
 }
 
-void sort_int_tab(int *tab, unsigned int size)
+void	sort_int_tab(int *tab, unsigned int size)
 {
-	unsigned int i;
+	int i = 0;
+	int swapped = 1;
 
-	while (!is_sorted(tab, size))
+	while (swapped)
 	{
+		swapped = 0;
 		i = 0;
 		while (i < size - 1)
 		{
 			if (tab[i] > tab[i + 1])
-				swap(&tab[i], &tab[i + 1]);
+			{
+				ft_swap(&tab[i], &tab[i + 1]);
+				swapped = 1;
+			}
 			i++;
-		}
+		}	
 	}
 }
 
-// int main()
-// {
-// 	int i = 0;
-// 	int	tab[] = {1, 2, 7, 4, 5};
-	
-// 	printf("Antes: ");
-// 	while (i < 5)
-// 	{
-// 		printf("%d", tab[i++]);
-// 		if (i != 5)
-// 			printf(" -> ");
-// 	}
-// 	sort_int_tab(tab, 5);
-// 	i = 0;
-// 	printf("\nDepois: ");
-// 	while (i < 5)
-// 	{
-// 		printf("%d", tab[i++]);
-// 		if (i != 5)
-// 			printf(" -> ");
-// 	}
-	
-// 	printf("\n");
-// 	return (0);
-// }
+int main()
+{
+	int i = 0;
+	int tab[] = {7, 2, 8, 1, 5};
+	int len = 5;
+
+	while (i < len)
+		printf("%d ", tab[i++]);
+	printf("\n");
+	sort_int_tab(tab, len);
+	i = 0;
+	while (i < len)
+		printf("%d ", tab[i++]);
+	return (0);
+}

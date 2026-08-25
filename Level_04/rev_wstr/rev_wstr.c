@@ -1,18 +1,19 @@
 
 #include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 int	count_words(char *str)
 {
-	int	i = 0;
+	int i = 0;
 	int words = 0;
+
+	while (str[i] && str[i] <= 32)
+		i++;
 	while (str[i])
 	{
-		while (str[i] && str[i] <= 32)
+		while (str[i] && str[i] > 32)
 			i++;
 		words++;
-		while (str[i] && (str[i] != 32 && str[i] != '\t'))
+		while (str[i] && str[i] <= 32)
 			i++;
 	}
 	return (words);
@@ -20,27 +21,25 @@ int	count_words(char *str)
 
 void	rev_wstr(char *str)
 {
-	int i;
-	int j;
-	int words = 0;
-	int space = count_words(str);
+	int	i = 0;
+	int j = 0;
+	int check = 0;
+	int words = count_words(str);
 
-	i = 0;
 	while (str[i])
 		i++;
 	i--;
 	while (i >= 0)
 	{
-		while (i >= 0 && str[i] <= 32)
-			i--;
-		while (i >= 0 && (str[i] != 32 && str[i] != '\t'))
+		while (i >= 0 && str[i] > 32)
 			i--;
 		j = i + 1;
-		words++;
-		while (str[j] && (str[j] != 32 && str[j] != '\t'))
+		while (str[j] && str[j] > 32)
 			write(1, &str[j++], 1);
-		if (words != space)
+		check++;
+		if (check != words)
 			write(1, " ", 1);
+		i--;
 	}
 }
 
